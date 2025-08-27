@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon Glassmorphism Navbar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #fff;
+            min-height: 200vh;
+            padding-top: 80px;
+        }
+
+        .content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 15px rgba(0, 247, 255, 0.7);
+        }
+
+        p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+
+        /* Glassmorphism Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 50px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            z-index: 1000;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Logo with 3D hologram effect */
+        .logo {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1002;
+        }
+
+        .logo-circle {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #ff00cc, #00ccff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 20px #ff00cc, 0 0 40px #00ccff;
+            transform-style: preserve-3d;
+            animation: rotate3d 8s linear infinite, glow 3s ease-in-out infinite alternate;
+        }
+
+        .logo i {
+            font-size: 24px;
+            color: white;
+        }
+
+        /* Navigation links */
+        .nav-links {
+            display: flex;
+            list-style: none;
+            transition: transform 0.4s ease-in-out;
+        }
+
+        .nav-item {
+            position: relative;
+            margin: 0 15px;
+        }
+
+        /* Neon glowing tabs */
+        .nav-link {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.4s ease;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 15px rgba(0, 247, 255, 0.5);
+            background: rgba(0, 0, 0, 0.3);
+            display: inline-block;
+        }
+
+        /* Different neon colors for each tab */
+        .nav-item:nth-child(1) .nav-link { box-shadow: 0 0 15px rgba(255, 0, 212, 0.7); }
+        .nav-item:nth-child(2) .nav-link { box-shadow: 0 0 15px rgba(0, 247, 255, 0.7); }
+        .nav-item:nth-child(3) .nav-link { box-shadow: 0 0 15px rgba(89, 255, 0, 0.7); }
+        .nav-item:nth-child(4) .nav-link { box-shadow: 0 0 15px rgba(255, 238, 0, 0.7); }
+        .nav-item:nth-child(5) .nav-link { box-shadow: 0 0 15px rgba(255, 81, 0, 0.7); }
+
+        /* Particle explosion effect */
+        .particles {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0;
+            z-index: 0;
+        }
+
+        /* Hover effects */
+        .nav-item:hover .nav-link {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px rgba(0, 247, 255, 0.7);
+        }
+
+        .nav-item:nth-child(1):hover .nav-link { box-shadow: 0 15px 25px rgba(255, 0, 212, 0.7); }
+        .nav-item:nth-child(2):hover .nav-link { box-shadow: 0 15px 25px rgba(0, 247, 255, 0.7); }
+        .nav-item:nth-child(3):hover .nav-link { box-shadow: 0 15px 25px rgba(89, 255, 0, 0.7); }
+        .nav-item:nth-child(4):hover .nav-link { box-shadow: 0 15px 25px rgba(255, 238, 0, 0.7); }
+        .nav-item:nth-child(5):hover .nav-link { box-shadow: 0 15px 25px rgba(255, 81, 0, 0.7); }
+
+        /* Hamburger menu */
+        .menu-toggle {
+            display: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 1002;
+            background: rgba(0, 0, 0, 0.3);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 10px rgba(0, 247, 255, 0.5);
+        }
+
+        /* Animations */
+        @keyframes rotate3d {
+            0% { transform: rotateY(0deg) rotateX(10deg); }
+            100% { transform: rotateY(360deg) rotateX(10deg); }
+        }
+
+        @keyframes glow {
+            0% { box-shadow: 0 0 20px #ff00cc, 0 0 40px #00ccff; }
+            100% { box-shadow: 0 0 30px #ff00cc, 0 0 60px #00ccff; }
+        }
+
+        @keyframes particle-explosion {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(var(--tx), var(--ty)) scale(0.5);
+            }
+        }
+
+        /* Demo content */
+        .demo-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .demo-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .demo-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .demo-card i {
+            font-size: 40px;
+            margin-bottom: 20px;
+            color: #00ccff;
+        }
+
+        /* Responsive design */
+        @media (max-width: 968px) {
+            .navbar {
+                padding: 15px 20px;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: rgba(0, 0, 0, 0.9);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transform: translateX(-100%);
+                z-index: 1001;
+            }
+            
+            .nav-links.active {
+                transform: translateX(0);
+            }
+            
+            .nav-item {
+                margin: 15px 0;
+            }
+            
+            .menu-toggle {
+                display: flex;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .logo-circle {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .nav-link {
+                padding: 8px 16px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Glassmorphism Navbar -->
+    <nav class="navbar">
+        <div class="logo">
+            <div class="logo-circle">
+                <i class="fas fa-atom"></i>
+            </div>
+        </div>
+        
+        <ul class="nav-links">
+            <li class="nav-item">
+                <a href="#" class="nav-link">Home</a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">Features</a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">Gallery</a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">Products</a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">Contact</a>
+            </li>
+        </ul>
+        
+        <div class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+
+    <div class="content">
+        <h1>Neon Glassmorphism Navbar</h1>
+        <p>Experience the stunning visual effects of this modern navigation bar with glassmorphism design, neon glowing tabs that explode into particles on hover, and a rotating 3D hologram logo.</p>
+        
+        <div class="demo-content">
+            <div class="demo-card">
+                <i class="fas fa-glass-whiskey"></i>
+                <h3>Glassmorphism Effect</h3>
+                <p>Transparent background with blur effect for a frosted glass appearance.</p>
+            </div>
+            <div class="demo-card">
+                <i class="fas fa-lightbulb"></i>
+                <h3>Neon Glow</h3>
+                <p>Vibrant neon glowing effects with different colors for each navigation tab.</p>
+            </div>
+            <div class="demo-card">
+                <i class="fas fa-atom"></i>
+                <h3>Particle Explosion</h3>
+                <p>Hover over tabs to see the liquid particle explosion effect before reforming.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const navItems = document.querySelectorAll('.nav-item');
+            const menuToggle = document.getElementById('menuToggle');
+            const navLinks = document.querySelector('.nav-links');
+            
+            // Create particle explosion effect on hover
+            navItems.forEach(item => {
+                item.addEventListener('mouseenter', function(e) {
+                    // Remove any existing particles
+                    const existingParticles = this.querySelectorAll('.particles');
+                    existingParticles.forEach(particle => particle.remove());
+                    
+                    // Create new particles
+                    for (let i = 0; i < 15; i++) {
+                        const particle = document.createElement('div');
+                        particle.classList.add('particles');
+                        
+                        // Set random position and color
+                        const x = (Math.random() - 0.5) * 100;
+                        const y = (Math.random() - 0.5) * 100;
+                        
+                        // Set CSS custom properties for animation
+                        particle.style.setProperty('--tx', `${x}px`);
+                        particle.style.setProperty('--ty', `${y}px`);
+                        
+                        // Set random color based on the nav item
+                        const index = Array.from(navItems).indexOf(this);
+                        const colors = [
+                            'rgba(255, 0, 212, 0.8)',
+                            'rgba(0, 247, 255, 0.8)',
+                            'rgba(89, 255, 0, 0.8)',
+                            'rgba(255, 238, 0, 0.8)',
+                            'rgba(255, 81, 0, 0.8)'
+                        ];
+                        
+                        particle.style.background = colors[index];
+                        
+                        // Set animation
+                        particle.style.animation = `particle-explosion 0.6s ease-out forwards`;
+                        
+                        this.appendChild(particle);
+                    }
+                });
+            });
+            
+            // Add sticky scroll effect
+            window.addEventListener('scroll', function() {
+                const navbar = document.querySelector('.navbar');
+                if (window.scrollY > 50) {
+                    navbar.style.background = 'rgba(0, 0, 0, 0.3)';
+                    navbar.style.backdropFilter = 'blur(20px)';
+                } else {
+                    navbar.style.background = 'rgba(255, 255, 255, 0.1)';
+                    navbar.style.backdropFilter = 'blur(15px)';
+                }
+            });
+            
+            // Toggle mobile menu
+            menuToggle.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+                
+                // Change icon based on menu state
+                const icon = this.querySelector('i');
+                if (navLinks.classList.contains('active')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+            
+            // Close menu when clicking on a link
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', function() {
+                    navLinks.classList.remove('active');
+                    const icon = menuToggle.querySelector('i');
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
