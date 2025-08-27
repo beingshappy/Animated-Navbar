@@ -11,7 +11,7 @@ A futuristic, interactive navbar with **glassmorphism**, floating neon tabs, and
 - Built with **HTML, CSS, and JavaScript** (no installation required)
 
 ## 🚀 Live Demo
-Experience it live: [Animated Navbar Live](https://your-live-link.com)
+Experience it live: [[Animated Navbar Live](https://your-live-link.com](https://beingshappy.github.io/Animated-Navbar/))
 
 ## 💻 Source Code
 Explore the code here: [Animated Navbar Repository](https://github.com/YourUsername/Animated-Navbar)
