@@ -14,7 +14,7 @@ A futuristic, interactive navbar with **glassmorphism**, floating neon tabs, and
 Experience it live: [[Animated Navbar Live](https://your-live-link.com](https://beingshappy.github.io/Animated-Navbar/))
 
 ## 💻 Source Code
-Explore the code here: [Animated Navbar Repository](https://github.com/YourUsername/Animated-Navbar)
+Explore the code here: [[Animated Navbar Repository](https://github.com/YourUsername/Animated-Navbar](https://github.com/beingshappy/Animated-Navbar.git))
 
 ## 💡 Growth & Inspiration
 This project represents **my journey of learning, creating, and pushing limits**.  
